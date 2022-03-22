@@ -2,12 +2,11 @@
 import time
 import sys
 import os
+from  math import trunc
+from pytz import timezone
 from datetime import datetime, time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-from PIL import GifImagePlugin
+from PIL import Image, ImageDraw, ImageFont
 from astral import LocationInfo
 from astral.sun import sun
 
@@ -50,18 +49,78 @@ options.brightness = 50
 options.hardware_mapping = 'adafruit-hat-pwm'  # If you have an Adafruit HAT: 'adafruit-hat'
 
 matrix = RGBMatrix(options = options)
-# Get sunrise/sunset times for auto-dimming
 
-city = LocationInfo("Tucson", "USA", "America/Phoenix", 32.22, -110.97)
-s = sun(city.observer, date=datetime.now())
+#auto-dimming range
+minbrt = 2
+maxbrt = 60
 
-print((
-    f'Dawn:    {s["dawn"]}\n'
-    f'Sunrise: {s["sunrise"]}\n'
-    f'Noon:    {s["noon"]}\n'
-    f'Sunset:  {s["sunset"]}\n'
-    f'Dusk:    {s["dusk"]}\n'
-))
+def TODAdjustBrightness():
+    
+    #create the geolocation for sun calculations
+    tuc = timezone('America/Phoenix')
+
+    # Get sunrise/sunset times for auto-dimming
+    city = LocationInfo("Tucson", "USA", "America/Phoenix", 32.22, -110.97)
+    s = sun(city.observer, date=datetime.now(), tzinfo=city.timezone)
+    sunrisen = 0
+    sunsetted = 0
+
+    print((
+        f'Dawn:    {s["dawn"]}\n'
+        f'Sunrise: {s["sunrise"]}\n'
+        f'Noon:    {s["noon"]}\n'
+        f'Sunset:  {s["sunset"]}\n'
+        f'Dusk:    {s["dusk"]}\n'
+    ))
+
+    diff = s["dawn"] - tuc.localize(datetime.now())
+    diffmindawn = diff.total_seconds() / 60
+
+    #if it's not dawn yet
+    if s["dawn"] > tuc.localize(datetime.now()):
+        print (f"not dawn yet")
+        print (f"now is {datetime.now()}")
+        print (f"dawn in {diffmindawn} min")
+    else:
+        print ("it's after dawn")
+        sunrisen = 1
+
+    diff = s["dusk"] - tuc.localize(datetime.now())
+    diffmindusk = diff.total_seconds() / 60
+
+    #if it's not sunset yet
+    if s["dusk"] > tuc.localize(datetime.now()):
+        print (f"not sunset yet")
+        print (f"now is {datetime.now()}")
+        print (f"sunset in {diffmindusk} min")
+    else:
+        print(f"it's after dusk")
+        sunsetted = 1
+
+    if not sunrisen and not sunsetted:
+        newbrt = trunc(30 - (diffmindawn/2))
+        if newbrt < minbrt:
+            newbrt = minbrt
+        print ("before dawn")
+
+    if sunrisen and not sunsetted:
+        print ("midday")
+        newbrt = trunc(30 - (diffmindawn/2))
+        if newbrt > maxbrt:
+            newbrt = maxbrt
+
+        newbrt = trunc(30 + (diffmindusk/2))
+        if newbrt > maxbrt:
+            newbrt = maxbrt
+
+    if sunrisen and sunsetted:
+        newbrt = trunc(30 + (diffmindusk/2))
+        if newbrt < minbrt:
+            newbrt = minbrt
+
+    matrix.brightness = newbrt
+    
+    return
 
 # Set Font
 myFont = ImageFont.load('/home/qwijib0/uniclock/monogram.pil')

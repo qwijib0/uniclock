@@ -190,7 +190,10 @@ try:
         topOfHour = 0
         now = datetime.now()
         if now.minute == 0:
+            print (f"top of the hour")
             topOfHour = 1
+        else:
+            print (f"not top of hour, it's {now.minute}")
         if now.second == 0:
             TODAdjustBrightness()
             updateClock(topOfHour)

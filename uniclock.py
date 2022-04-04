@@ -192,6 +192,7 @@ def updateClock(topOfHour):
 
 try:
     print("Press CTRL-C to stop.")
+    updateClock(1)
     while True:
         topOfHour = 0
         now = datetime.now()

@@ -133,6 +133,7 @@ def in_between(now, start, end):
         
 def sparkle(numloops, frdelay):
     print ("sparkling!")
+    t.sleep(1)
     i = 0
     while (i < numloops):
         for frame in frames:

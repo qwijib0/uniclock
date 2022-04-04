@@ -136,7 +136,7 @@ def sparkle(numloops, frdelay):
     t.sleep(1)
     i = 0
     while (i < numloops):
-        print(f"sparkle loop {i}")
+        print(f"sparkle loop {i} with {frames.length} frames")
         t.sleep(1)
         for frame in frames:
 

@@ -195,8 +195,12 @@ try:
         else:
             print (f"not top of hour, it's {now.minute}")
         if now.second == 0:
+            print (f"top of the minute, it's {now.second}")
+            topOfHour = 1
             TODAdjustBrightness()
             updateClock(topOfHour)
+        else:
+            print (f"not top of the minute, it's {now.second}")
 
 except KeyboardInterrupt:
     sys.exit(0)

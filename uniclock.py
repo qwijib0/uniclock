@@ -162,9 +162,15 @@ def updateClock(topOfHour):
     else:
         frames = awakeframes
     
+    
     print(f"top of hours status is {topOfHour}")
+    
+    time.sleep(5)
+
+    
     if topOfHour:
     	sparkle(20,.1)
+    
     
     imageObject = Image.open(frames[0])
 

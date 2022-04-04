@@ -132,6 +132,7 @@ def in_between(now, start, end):
         return start <= now or now < end
         
 def sparkle(numloops, frdelay):
+    print ("sparkling!")
     i = 0
     while (i < numloops):
         for frame in frames:
@@ -169,6 +170,7 @@ def updateClock(topOfHour):
 
     
     if topOfHour:
+        print("let's sparkle")
     	sparkle(20,.1)
     
     

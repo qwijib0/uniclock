@@ -153,7 +153,7 @@ def sparkle(numloops, frdelay):
             time.sleep(frdelay)
         i += 1
 
-def updateClock():
+def updateClock(topOfHour):
     now = datetime.now()
         
     #switch to asleep frames overnight
@@ -162,8 +162,7 @@ def updateClock():
     else:
         frames = awakeframes
     
-    time_minsec = now.strftime("%M:%S")
-    if time_minsec == "00:00":
+    if topOfHour:
     	sparkle(20,.1)
     
     imageObject = Image.open(frames[0])
@@ -187,7 +186,13 @@ def updateClock():
 try:
     print("Press CTRL-C to stop.")
     while True:
-        updateClock()
+        topOfHour = 0
+        now = datetime.now()
+        if now.minutes == 0:
+            topOfHour = 1
+        if now.seconds == 0:
+            TODAdjustBrightness()
+        updateClock(topOfHour)
 
 except KeyboardInterrupt:
     sys.exit(0)

@@ -193,7 +193,7 @@ try:
             topOfHour = 1
         if now.second == 0:
             TODAdjustBrightness()
-        updateClock(topOfHour)
+            updateClock(topOfHour)
 
 except KeyboardInterrupt:
     sys.exit(0)

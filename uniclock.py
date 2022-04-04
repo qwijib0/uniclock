@@ -132,10 +132,12 @@ def in_between(now, start, end):
         return start <= now or now < end
         
 def sparkle(numloops, frdelay):
-    print ("sparkling!")
+    print (f"sparkling for {numloops}!")
     t.sleep(1)
     i = 0
     while (i < numloops):
+        print(f"sparkle loop {i}")
+        t.sleep(1)
         for frame in frames:
 
             imageObject = Image.open(frame)

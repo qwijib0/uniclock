@@ -188,9 +188,9 @@ try:
     while True:
         topOfHour = 0
         now = datetime.now()
-        if now.minutes == 0:
+        if now.minute == 0:
             topOfHour = 1
-        if now.seconds == 0:
+        if now.second == 0:
             TODAdjustBrightness()
         updateClock(topOfHour)
 

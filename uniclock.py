@@ -166,13 +166,16 @@ def updateClock(topOfHour):
     
     print(f"top of hours status is {topOfHour}")
     
-    t.sleep(5)
+    t.sleep(1)
 
     
     if topOfHour:
         print("let's sparkle")
+        t.sleep(1)
         sparkle(20,.1)
-    
+    else:
+        print ("no sparkle")
+        t.sleep(1)
     
     imageObject = Image.open(frames[0])
 

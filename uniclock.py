@@ -171,7 +171,7 @@ def updateClock(topOfHour):
     
     if topOfHour:
         print("let's sparkle")
-    	sparkle(20,.1)
+        sparkle(20,.1)
     
     
     imageObject = Image.open(frames[0])

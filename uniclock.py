@@ -162,6 +162,7 @@ def updateClock(topOfHour):
     else:
         frames = awakeframes
     
+    print(f"top of hours status is {topOfHour}")
     if topOfHour:
     	sparkle(20,.1)
     

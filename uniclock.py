@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import time
+import time as t
 import sys
 import os
-from  math import trunc
+from math import trunc
 from pytz import timezone
 from datetime import datetime, time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
@@ -150,7 +150,7 @@ def sparkle(numloops, frdelay):
 
             matrix.SetImage(imageObject.convert('RGB'))
 	
-            time.sleep(frdelay)
+            t.sleep(frdelay)
         i += 1
 
 def updateClock(topOfHour):
@@ -165,7 +165,7 @@ def updateClock(topOfHour):
     
     print(f"top of hours status is {topOfHour}")
     
-    time.sleep(5)
+    t.sleep(5)
 
     
     if topOfHour:

@@ -208,26 +208,31 @@ try:
         topOfHour = 0
         now = datetime.now()
         
+        #check for top of the hour
         if now.minute == 0:
-            print (f"top of the hour")
+            #do top of the hour tasks
+            #print (f"top of the hour")
             topOfHour = 1
         else:
-            print (f"not top of hour, it's {now.minute}")
+            #print (f"not top of hour, it's {now.minute}")
         if now.second == 0:
             #do top of the minute checks/tasks
-            print (f"top of the minute, it's {now.second}")
+            #print (f"top of the minute, it's {now.second}")
             
             #switch to asleep frames overnight
             if (in_between(datetime.now().time(), time(20,00), time(6,50))):
                 frames = asleepframes
             else:
                 frames = awakeframes
-            
-            topOfHour = 1
+                        
+            #Adjust brightness for the time of day
             TODAdjustBrightness()
+            
+            #Change the screen
             updateClock(topOfHour)
+            
         else:
-            print (f"not top of the minute, it's {now.second}")
+            #print (f"not top of the minute, it's {now.second}")
 
 except KeyboardInterrupt:
     sys.exit(0)

@@ -159,12 +159,6 @@ def sparkle(numloops, frdelay):
 
 def updateClock(topOfHour):
     now = datetime.now()
-        
-    #switch to asleep frames overnight
-    if (in_between(datetime.now().time(), time(20,00), time(6,50))):
-        frames = asleepframes
-    else:
-        frames = awakeframes
     
     
     print(f"top of hours status is {topOfHour}")
@@ -200,17 +194,25 @@ def updateClock(topOfHour):
 
 try:
     print("Press CTRL-C to stop.")
-    updateClock(1)
     while True:
         topOfHour = 0
         now = datetime.now()
+        
         if now.minute == 0:
             print (f"top of the hour")
             topOfHour = 1
         else:
             print (f"not top of hour, it's {now.minute}")
         if now.second == 0:
+            #do top of the minute checks/tasks
             print (f"top of the minute, it's {now.second}")
+            
+            #switch to asleep frames overnight
+                if (in_between(datetime.now().time(), time(20,00), time(6,50))):
+                    frames = asleepframes
+                else:
+                    frames = awakeframes
+            
             topOfHour = 1
             TODAdjustBrightness()
             updateClock(topOfHour)

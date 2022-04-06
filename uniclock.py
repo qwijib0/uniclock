@@ -136,7 +136,6 @@ def sparkle(numloops, frdelay):
     i = 0
     while (i < numloops):
         print(f"sparkle loop {i} with {len(frames)} frames")
-        t.sleep(1)
         for frame in frames:
 
             imageObject = Image.open(frame)

@@ -186,10 +186,7 @@ def updateClock(topOfHour):
 
     matrix.SetImage(imageObject.convert('RGB'))
     
-    #hold till the end of the update second
-    
-    while now.second == 0:
-        pass
+
     
     return
 
@@ -234,6 +231,11 @@ try:
             
             #Change the screen
             updateClock(topOfHour)
+            
+            #wait for the end of the second
+            while now.second == 0:
+                pass
+            
             
         else:
             #print (f"not top of the minute, it's {now.second}")

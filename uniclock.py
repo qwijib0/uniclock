@@ -182,9 +182,14 @@ def updateClock(topOfHour):
 
 
     # Make image fit our screen.
-     #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
+    #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
 
     matrix.SetImage(imageObject.convert('RGB'))
+    
+    #hold till the end of the update second
+    
+    while now.second == 0:
+        pass
     
     return
 
@@ -197,7 +202,9 @@ try:
     else:
         frames = awakeframes
     
-    #put a frame on the screen before we get to the main loop
+    
+    #set initial brightness and put a frame on the screen before we get to the main loop
+    TODAdjustBrightness()
     updateClock(0)
     
     while True:

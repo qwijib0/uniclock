@@ -203,7 +203,7 @@ try:
     while True:
         topOfHour = 0
         now = datetime.now()
-        print(now)
+        
         #check for top of the hour
         if now.minute == 0:
             #do top of the hour tasks

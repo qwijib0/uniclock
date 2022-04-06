@@ -208,10 +208,10 @@ try:
             print (f"top of the minute, it's {now.second}")
             
             #switch to asleep frames overnight
-                if (in_between(datetime.now().time(), time(20,00), time(6,50))):
-                    frames = asleepframes
-                else:
-                    frames = awakeframes
+            if (in_between(datetime.now().time(), time(20,00), time(6,50))):
+                frames = asleepframes
+            else:
+                frames = awakeframes
             
             topOfHour = 1
             TODAdjustBrightness()

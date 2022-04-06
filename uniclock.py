@@ -215,6 +215,7 @@ try:
             topOfHour = 1
         else:
             #print (f"not top of hour, it's {now.minute}")
+            pass
         if now.second == 0:
             #do top of the minute checks/tasks
             #print (f"top of the minute, it's {now.second}")
@@ -233,6 +234,7 @@ try:
             
         else:
             #print (f"not top of the minute, it's {now.second}")
-
+            pass
+            
 except KeyboardInterrupt:
     sys.exit(0)

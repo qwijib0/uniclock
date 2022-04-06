@@ -133,7 +133,6 @@ def in_between(now, start, end):
         
 def sparkle(numloops, frdelay):
     print (f"sparkling for {numloops}!")
-    t.sleep(1)
     i = 0
     while (i < numloops):
         print(f"sparkle loop {i} with {len(frames)} frames")
@@ -145,9 +144,11 @@ def sparkle(numloops, frdelay):
 
 	        # Add time
             now = datetime.now()
-            time_str = now.strftime("%a %I:%M %p")
+            time_str = now.strftime("%I:%M %P")
+            #dow_str = now.strftime("%A")
             i1 = ImageDraw.Draw(imageObject)
-            i1.text((0,54), str(time_str), font=myFont, fill=(255, 255, 255))
+            i1.text((8,54), str(time_str), font=myFont, fill=(255, 255, 255))
+            #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
 
             # Make image fit our screen.
             #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
@@ -194,6 +195,16 @@ def updateClock(topOfHour):
 
 try:
     print("Press CTRL-C to stop.")
+    
+    #initial setup of day/night status
+    if (in_between(datetime.now().time(), time(20,00), time(6,50))):
+        frames = asleepframes
+    else:
+        frames = awakeframes
+    
+    #put a frame on the screen before we get to the main loop
+    updateClock(0)
+    
     while True:
         topOfHour = 0
         now = datetime.now()

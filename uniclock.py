@@ -234,6 +234,7 @@ try:
             
             #wait for the end of the second
             while now.second == 0:
+                print("waiting...")
                 pass
             
             

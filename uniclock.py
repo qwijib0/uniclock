@@ -123,7 +123,7 @@ def TODAdjustBrightness():
     return
 
 # Set Font
-myFont = ImageFont.load('./monogram.pil')
+myFont = ImageFont.load('monogram.pil')
 
 def in_between(now, start, end):
     if start <= end:

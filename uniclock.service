@@ -1,0 +1,11 @@
+[Unit]
+Description=Unicorn Clock
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/usr/bin/python3 /home/qwijib0/uniclock/uniclock.py /home/qwijib0/uniclock/images/ > /home/qwijib0/uniclock/uniclock.log
+User=root
+
+[Install]
+WantedBy=multi-user.target

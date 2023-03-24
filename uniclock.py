@@ -6,7 +6,7 @@ from math import trunc
 from pytz import timezone
 from datetime import datetime, time
 from rgbmatrix import RGBMatrix, RGBMatrixOptions
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageColor
 from astral import LocationInfo
 from astral.sun import sun
 from pywttr import Wttr

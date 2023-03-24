@@ -9,6 +9,8 @@ from rgbmatrix import RGBMatrix, RGBMatrixOptions
 from PIL import Image, ImageDraw, ImageFont
 from astral import LocationInfo
 from astral.sun import sun
+from pywttr import Wttr
+
 
 
 if len(sys.argv) < 2:
@@ -53,6 +55,31 @@ matrix = RGBMatrix(options = options)
 #auto-dimming range
 minbrt = 2
 maxbrt = 60
+
+#forecast globals
+todayhigh = 0
+
+def GetForecast():
+    wttr = Wttr("Tucson")
+    forecast = wttr.en()
+    print("getting forecast")
+    return(int(forecast.weather[0].maxtemp_f))
+
+def GetForecastColor(temp):
+
+    if temp >= 100:
+        return "#e55e54"
+    elif temp >= 90:
+        return "#f09065"
+    elif temp >= 80:
+        return "#eec643"
+    elif temp >= 70:
+        return "#62c8b1"
+    elif temp >= 60:
+        return "#4074f6"
+    else:
+        return "#936bf6"
+
 
 def TODAdjustBrightness():
     
@@ -146,9 +173,11 @@ def sparkle(numloops, frdelay):
             time_str = now.strftime("%I:%M %P")
             #dow_str = now.strftime("%A")
             i1 = ImageDraw.Draw(imageObject)
-            i1.text((8,54), str(time_str), font=myFont, fill=(255, 255, 255))
+            i1.text((1,54), str(time_str), font=myFont, fill=(255, 255, 255))
             #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
-
+            
+            #Add forecast
+            i1.text((51,54), str(GetForecast()), font=myFont, fill=(255, 255, 255))
             # Make image fit our screen.
             #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
 
@@ -177,8 +206,17 @@ def updateClock(topOfHour):
     time_str = now.strftime("%I:%M %P")
     #dow_str = now.strftime("%A")
     i1 = ImageDraw.Draw(imageObject)
-    i1.text((8,54), str(time_str), font=myFont, fill=(255, 255, 255))
+    i1.text((1,54), str(time_str), font=myFont, fill=(255, 255, 255))
     #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
+
+    #Add forecast    
+    
+    #adjust spacing if 3 digits to right-align
+    if todayhigh > 99:
+        i1.text((46,54), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+    else:
+        i1.text((52,54), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+
 
 
     # Make image fit our screen.
@@ -200,8 +238,11 @@ try:
         frames = awakeframes
     
     
-    #set initial brightness and put a frame on the screen before we get to the main loop
+ #set initial brightness and put a frame on the screen before we get to the main loop
     TODAdjustBrightness()
+    print("getting initial forecast")
+    todayhigh = GetForecast()
+    print(f"today's high will be {todayhigh}")
     updateClock(0)
     
     while True:
@@ -211,6 +252,7 @@ try:
         #check for top of the hour
         if now.minute == 0:
             #do top of the hour tasks
+            todayhigh = GetForecast()
             #print (f"top of the hour")
             topOfHour = 1
         else:
@@ -235,6 +277,7 @@ try:
             #wait for the end of the second
             while now.second == 0:
                 now = datetime.now()
+            
             
             
         else:

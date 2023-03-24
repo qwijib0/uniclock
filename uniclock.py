@@ -213,9 +213,9 @@ def updateClock(topOfHour):
     
     #adjust spacing if 3 digits to right-align
     if todayhigh > 99:
-        i1.text((46,54), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+        i1.text((46,46), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
     else:
-        i1.text((52,54), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+        i1.text((52,46), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
 
 
 

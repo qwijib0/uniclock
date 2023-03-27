@@ -24,20 +24,20 @@ asleepframes = []
 frames = []
 
 i = 1
-print ("getting awake frames")
+#print ("getting awake frames")
 while os.path.exists(f"{ image_file }/awake/unicorn{ i }.png"):
     awakeframes.append(f"{ image_file }/awake/unicorn{ i }.png")
-    print (f"appended { image_file }/awake/unicorn{ i }.png")
+    #print (f"appended { image_file }/awake/unicorn{ i }.png")
     i += 1
     
-print ("getting asleepframes") 
+#print ("getting asleepframes") 
 i = 1
 while os.path.exists(f"{ image_file }/asleep/unicorn{ i }.png"):
     asleepframes.append(f"{ image_file }/asleep/unicorn{ i }.png")
-    print (f"appended { image_file }/asleep/unicorn{ i }.png")
+    #print (f"appended { image_file }/asleep/unicorn{ i }.png")
     i += 1
     
-print (frames)
+#print (frames)
 #imageObject = Image.open(image_file)
 
 # Configuration for the matrix
@@ -66,10 +66,10 @@ def GetForecast():
     wttr = Wttr("Tucson")
     forecast = wttr.en()
     global conditionset
-    print("getting forecast")
+    #print("getting forecast")
     for x in range(2,6):
         conditionset.append(forecast.weather[0].hourly[x].weather_desc[0].value)
-    print(conditionset)
+    #print(conditionset)
     return(int(forecast.weather[0].maxtemp_f))
     #return(int("107"))
 
@@ -90,7 +90,7 @@ def GetForecastColor(temp):
 
 def GetTodayConditionIcon():
     
-    print(conditionset)
+    #print(conditionset)
     sunnyset = ['Sunny']
     pcloudyset = ['PartlyCloudy']
     cloudyset = ['Cloudy','VeryCloudy','Fog']
@@ -128,7 +128,7 @@ def TODAdjustBrightness():
     sunrisen = 0
     sunsetted = 0
 
-    print((
+    #print((
         f'Dawn:    {s["dawn"]}\n'
         f'Sunrise: {s["sunrise"]}\n'
         f'Noon:    {s["noon"]}\n'
@@ -141,11 +141,11 @@ def TODAdjustBrightness():
 
     #if it's not dawn yet
     if s["dawn"] > tuc.localize(datetime.now()):
-        print (f"not dawn yet")
-        print (f"now is {datetime.now()}")
-        print (f"dawn in {diffmindawn} min")
+        #print (f"not dawn yet")
+        #print (f"now is {datetime.now()}")
+        #print (f"dawn in {diffmindawn} min")
     else:
-        print ("it's after dawn")
+        #print ("it's after dawn")
         sunrisen = 1
 
     diff = s["dusk"] - tuc.localize(datetime.now())
@@ -153,21 +153,21 @@ def TODAdjustBrightness():
 
     #if it's not sunset yet
     if s["dusk"] > tuc.localize(datetime.now()):
-        print (f"not sunset yet")
-        print (f"now is {datetime.now()}")
-        print (f"sunset in {diffmindusk} min")
+        #print (f"not sunset yet")
+        #print (f"now is {datetime.now()}")
+        #print (f"sunset in {diffmindusk} min")
     else:
-        print(f"it's after dusk")
+        #print(f"it's after dusk")
         sunsetted = 1
 
     if not sunrisen and not sunsetted:
         newbrt = trunc(30 - (diffmindawn/2))
         if newbrt < minbrt:
             newbrt = minbrt
-        print ("before dawn")
+        #print ("before dawn")
 
     if sunrisen and not sunsetted:
-        print ("midday")
+        #print ("midday")
         newbrt = trunc(30 - (diffmindawn/2))
         if newbrt > maxbrt:
             newbrt = maxbrt
@@ -195,10 +195,10 @@ def in_between(now, start, end):
         return start <= now or now < end
         
 def sparkle(numloops, frdelay):
-    print (f"sparkling for {numloops}!")
+    #print (f"sparkling for {numloops}!")
     i = 0
     while (i < numloops):
-        print(f"sparkle loop {i} with {len(frames)} frames")
+        #print(f"sparkle loop {i} with {len(frames)} frames")
         for frame in frames:
 
             imageObject = Image.open(frame)
@@ -237,14 +237,14 @@ def updateClock(topOfHour):
     now = datetime.now()
     
     
-    print(f"top of hours status is {topOfHour}")
+    #print(f"top of hours status is {topOfHour}")
     
     
     if topOfHour:
-        print("let's sparkle")
+        #print("let's sparkle")
         sparkle(20,.1)
     else:
-        print ("no sparkle")
+        #print ("no sparkle")
     
     imageObject = Image.open(frames[0])
     imageObject = imageObject.convert("RGBA")
@@ -295,7 +295,7 @@ def updateClock(topOfHour):
     return
 
 try:
-    print("Press CTRL-C to stop.")
+    #print("Press CTRL-C to stop.")
     
     #initial setup of day/night status
     if (in_between(datetime.now().time(), time(20,00), time(6,50))):
@@ -306,11 +306,11 @@ try:
     
  #set initial brightness and put a frame on the screen before we get to the main loop
     TODAdjustBrightness()
-    print("getting initial forecast")
+    #print("getting initial forecast")
     todayhigh = GetForecast()
-    print(f"today's high will be {todayhigh}")
+    #print(f"today's high will be {todayhigh}")
     todayconditions = GetTodayConditionIcon()
-    print(f"today's conditionicon is {todayconditions}")
+    #print(f"today's conditionicon is {todayconditions}")
     updateClock(0)
     
     while True:

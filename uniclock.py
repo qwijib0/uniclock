@@ -129,12 +129,12 @@ def TODAdjustBrightness():
     sunsetted = 0
 
     #print((
-        f'Dawn:    {s["dawn"]}\n'
-        f'Sunrise: {s["sunrise"]}\n'
-        f'Noon:    {s["noon"]}\n'
-        f'Sunset:  {s["sunset"]}\n'
-        f'Dusk:    {s["dusk"]}\n'
-    ))
+    #    f'Dawn:    {s["dawn"]}\n'
+    #    f'Sunrise: {s["sunrise"]}\n'
+    #    f'Noon:    {s["noon"]}\n'
+    #    f'Sunset:  {s["sunset"]}\n'
+    #    f'Dusk:    {s["dusk"]}\n'
+    #))
 
     diff = s["dawn"] - tuc.localize(datetime.now())
     diffmindawn = diff.total_seconds() / 60

@@ -141,10 +141,11 @@ def TODAdjustBrightness():
 
     #if it's not dawn yet
     if s["dawn"] > tuc.localize(datetime.now()):
+        dummy = 0
         #print (f"not dawn yet")
         #print (f"now is {datetime.now()}")
         #print (f"dawn in {diffmindawn} min")
-    else:
+    #else:
         #print ("it's after dawn")
         sunrisen = 1
 
@@ -153,6 +154,7 @@ def TODAdjustBrightness():
 
     #if it's not sunset yet
     if s["dusk"] > tuc.localize(datetime.now()):
+        dummy = 0
         #print (f"not sunset yet")
         #print (f"now is {datetime.now()}")
         #print (f"sunset in {diffmindusk} min")

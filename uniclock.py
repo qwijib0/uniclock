@@ -182,7 +182,7 @@ def TODAdjustBrightness():
         newbrt = trunc(30 + (diffmindusk/2))
         if newbrt < minbrt:
             newbrt = minbrt
-
+    print(newbrt)
     matrix.brightness = newbrt
     
     return

@@ -2,6 +2,7 @@
 import time as t
 import sys
 import os
+import math
 from math import trunc
 from pytz import timezone
 from datetime import datetime, time
@@ -58,12 +59,19 @@ maxbrt = 60
 
 #forecast globals
 todayhigh = 0
+conditionset = []
+todayconditions = ""
 
 def GetForecast():
     wttr = Wttr("Tucson")
     forecast = wttr.en()
+    global conditionset
     print("getting forecast")
+    for x in range(2,6):
+        conditionset.append(forecast.weather[0].hourly[x].weather_desc[0].value)
+    print(conditionset)
     return(int(forecast.weather[0].maxtemp_f))
+    #return(int("107"))
 
 def GetForecastColor(temp):
 
@@ -80,7 +88,35 @@ def GetForecastColor(temp):
     else:
         return "#936bf6"
 
+def GetTodayConditionIcon():
+    
+    print(conditionset)
+    sunnyset = ['Sunny']
+    pcloudyset = ['PartlyCloudy']
+    cloudyset = ['Cloudy','VeryCloudy','Fog']
+    rainyset = ['LightShowers','LightRain','HeavyShowers','HeavyRain']
+    wmixset = ['LightSleet','LightSleetShowers']
+    tstormsset = ['ThunderyShowers','ThunderySnowShowers','ThunderyHeavyRain']
+    flurriesset = ['LightSnow','LightSnowShowers']
+    snowyset = ['HeavySnow','HeavySnowShowers']
 
+    if not set(tstormsset).isdisjoint(set(conditionset)):
+        return("tstorms.png")
+    elif not set(snowyset).isdisjoint(set(conditionset)):
+        return("snowy.png")
+    elif not set(flurriesset).isdisjoint(set(conditionset)):
+        return("flurries.png")
+    elif not set(wmixset).isdisjoint(set(conditionset)):
+        return("wmix.png")
+    elif not set(rainyset).isdisjoint(set(conditionset)):
+        return("rainy.png")
+    elif not set(cloudyset).isdisjoint(set(conditionset)):
+        return("cloudy.png")
+    elif not set(pcloudyset).isdisjoint(set(conditionset)):
+        return("pcloudy.png")
+    else:
+        return("sunny.png")
+     
 def TODAdjustBrightness():
     
     #create the geolocation for sun calculations
@@ -166,20 +202,31 @@ def sparkle(numloops, frdelay):
         for frame in frames:
 
             imageObject = Image.open(frame)
+            imageObject = imageObject.convert("RGBA")
+            weatherImage = Image.open(f"{ image_file }/wicons/{ todayconditions }")
+            weatherImage = weatherImage.convert("RGBA")
+            imageObject.paste(weatherImage, (0,43), weatherImage)
 
-
-	        # Add time
-            now = datetime.now()
-            time_str = now.strftime("%I:%M %P")
-            #dow_str = now.strftime("%A")
+            # Add time
+            time_str = now.strftime("%I:%M %p")
+            dow_str = now.strftime("%a")
+            hr_str = now.strftime("%I")
+            min_str = now.strftime("%M")
+            anp_str = now.strftime("%P")
             i1 = ImageDraw.Draw(imageObject)
-            i1.text((1,54), str(time_str), font=myFont, fill=(255, 255, 255))
-            #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
-            
-            #Add forecast
-            i1.text((51,54), str(GetForecast()), font=myFont, fill=(255, 255, 255))
-            # Make image fit our screen.
-            #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)
+            i1.text((37,57), str(hr_str), font=myFont, fill=(255, 255, 255))
+            i1.text((48,57), str(":"), font=myFont, fill=(255, 255, 255))
+            i1.text((53,57), str(min_str), font=myFont, fill=(255, 255, 255))
+            i1.text((47,48), str(dow_str), font=myFont, fill=(255, 255, 255))
+
+    
+         #adjust spacing if 3 digits to right-align
+            if todayhigh > 99:
+                i1.text((0,57), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+                i1.ellipse((18,56,20,58),fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+            else:
+                i1.text((0,57), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+                i1.ellipse((12,56,14,58),fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
 
             matrix.SetImage(imageObject.convert('RGB'))
 	
@@ -200,24 +247,43 @@ def updateClock(topOfHour):
         print ("no sparkle")
     
     imageObject = Image.open(frames[0])
-
+    imageObject = imageObject.convert("RGBA")
+    weatherImage = Image.open(f"{ image_file }/wicons/{ todayconditions }")
+    weatherImage = weatherImage.convert("RGBA")
+    imageObject.paste(weatherImage, (0,43), weatherImage)
 
     # Add time
-    time_str = now.strftime("%I:%M %P")
-    #dow_str = now.strftime("%A")
+    time_str = now.strftime("%I:%M %p")
+    dow_str = now.strftime("%a")
+    hr_str = now.strftime("%I")
+    min_str = now.strftime("%M")
+    anp_str = now.strftime("%P")
     i1 = ImageDraw.Draw(imageObject)
-    i1.text((1,54), str(time_str), font=myFont, fill=(255, 255, 255))
+    #i1.text((17,57), str(time_str), font=myFont, fill=(255, 255, 255))
     #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
+    i1.text((37,57), str(hr_str), font=myFont, fill=(255, 255, 255))
+    i1.text((48,57), str(":"), font=myFont, fill=(255, 255, 255))
+    i1.text((53,57), str(min_str), font=myFont, fill=(255, 255, 255))
+    i1.text((47,48), str(dow_str), font=myFont, fill=(255, 255, 255))
 
-    #Add forecast    
+    #Add forecast
+    #w, h = 14, 10
+    #shape = [(49, 44), (49 + w, 44 + h)]
+    ##w, h = 10, 7
+    ##shape = [(51, 46), (51 + w, 46 + h)]
+
+    #i1.rectangle(shape,fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+    ##i1.rectangle(shape,fill=(0,0,0),outline=(0,0,0))
+    #i1.ellipse((18,55,20,57),fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+
     
     #adjust spacing if 3 digits to right-align
     if todayhigh > 99:
-        i1.text((46,46), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+        i1.text((0,57), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+        i1.ellipse((18,56,20,58),fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
     else:
-        i1.text((52,46), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
-
-
+        i1.text((0,57), str(todayhigh), font=myFont, fill=(ImageColor.getrgb(GetForecastColor(todayhigh))))
+        i1.ellipse((12,56,14,58),fill=(0,0,0),outline=(ImageColor.getrgb(GetForecastColor(todayhigh))))
 
     # Make image fit our screen.
     #imageObject.thumbnail((matrix.width, matrix.height), Image.ANTIALIAS)

@@ -145,7 +145,7 @@ def TODAdjustBrightness():
         print (f"not dawn yet")
         print (f"now is {datetime.now()}")
         print (f"dawn in {diffmindawn} min")
-    #else:
+    else:
         print ("it's after dawn")
         sunrisen = 1
 

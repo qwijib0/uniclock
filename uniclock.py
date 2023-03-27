@@ -330,7 +330,7 @@ try:
             #do top of the minute checks/tasks
            
             #only do this at top of the hour and only once
-            if topOfHour = 1:
+            if topOfHour == 1:
                 todayhigh = GetForecast()
                 todayconditions = GetTodayConditionIcon()
                 

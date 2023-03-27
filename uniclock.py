@@ -128,13 +128,13 @@ def TODAdjustBrightness():
     sunrisen = 0
     sunsetted = 0
 
-    #print((
-    #    f'Dawn:    {s["dawn"]}\n'
-    #    f'Sunrise: {s["sunrise"]}\n'
-    #    f'Noon:    {s["noon"]}\n'
-    #    f'Sunset:  {s["sunset"]}\n'
-    #    f'Dusk:    {s["dusk"]}\n'
-    #))
+    print((
+        f'Dawn:    {s["dawn"]}\n'
+        f'Sunrise: {s["sunrise"]}\n'
+        f'Noon:    {s["noon"]}\n'
+        f'Sunset:  {s["sunset"]}\n'
+        f'Dusk:    {s["dusk"]}\n'
+    ))
 
     diff = s["dawn"] - tuc.localize(datetime.now())
     diffmindawn = diff.total_seconds() / 60
@@ -142,11 +142,11 @@ def TODAdjustBrightness():
     #if it's not dawn yet
     if s["dawn"] > tuc.localize(datetime.now()):
         dummy = 0
-        #print (f"not dawn yet")
-        #print (f"now is {datetime.now()}")
-        #print (f"dawn in {diffmindawn} min")
+        print (f"not dawn yet")
+        print (f"now is {datetime.now()}")
+        print (f"dawn in {diffmindawn} min")
     #else:
-        #print ("it's after dawn")
+        print ("it's after dawn")
         sunrisen = 1
 
     diff = s["dusk"] - tuc.localize(datetime.now())
@@ -155,9 +155,9 @@ def TODAdjustBrightness():
     #if it's not sunset yet
     if s["dusk"] > tuc.localize(datetime.now()):
         dummy = 0
-        #print (f"not sunset yet")
-        #print (f"now is {datetime.now()}")
-        #print (f"sunset in {diffmindusk} min")
+        print (f"not sunset yet")
+        print (f"now is {datetime.now()}")
+        print (f"sunset in {diffmindusk} min")
     else:
         #print(f"it's after dusk")
         sunsetted = 1
@@ -169,7 +169,7 @@ def TODAdjustBrightness():
         #print ("before dawn")
 
     if sunrisen and not sunsetted:
-        #print ("midday")
+        print ("midday")
         newbrt = trunc(30 - (diffmindawn/2))
         if newbrt > maxbrt:
             newbrt = maxbrt
@@ -182,6 +182,7 @@ def TODAdjustBrightness():
         newbrt = trunc(30 + (diffmindusk/2))
         if newbrt < minbrt:
             newbrt = minbrt
+    
     print(newbrt)
     matrix.brightness = newbrt
     

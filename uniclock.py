@@ -320,8 +320,7 @@ try:
         #check for top of the hour
         if now.minute == 0:
             #do top of the hour tasks
-            todayhigh = GetForecast()
-            todayconditions = GetTodayConditionIcon()
+            
             #print (f"top of the hour")
             topOfHour = 1
         else:
@@ -329,6 +328,12 @@ try:
             pass
         if now.second == 0:
             #do top of the minute checks/tasks
+           
+            #only do this at top of the hour and only once
+            if topOfHour = 1:
+                todayhigh = GetForecast()
+                todayconditions = GetTodayConditionIcon()
+                
             #print (f"top of the minute, it's {now.second}")
             
             #switch to asleep frames overnight

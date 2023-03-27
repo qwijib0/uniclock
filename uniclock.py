@@ -246,6 +246,7 @@ def updateClock(topOfHour):
         #print("let's sparkle")
         sparkle(20,.1)
     else:
+        dummy = 0
         #print ("no sparkle")
     
     imageObject = Image.open(frames[0])

@@ -309,6 +309,8 @@ try:
     print("getting initial forecast")
     todayhigh = GetForecast()
     print(f"today's high will be {todayhigh}")
+    todayconditions = GetTodayConditionIcon()
+    print(f"today's conditionicon is {todayconditions}")
     updateClock(0)
     
     while True:
@@ -319,6 +321,7 @@ try:
         if now.minute == 0:
             #do top of the hour tasks
             todayhigh = GetForecast()
+            todayconditions = GetTodayConditionIcon()
             #print (f"top of the hour")
             topOfHour = 1
         else:

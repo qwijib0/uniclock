@@ -64,7 +64,10 @@ todayconditions = ""
 
 def GetForecast():
     wttr = Wttr("Tucson")
-    forecast = wttr.en()
+    try:
+        forecast = wttr.en()
+    except:
+        return todayhigh
     global conditionset
     #print("getting forecast")
     for x in range(2,6):

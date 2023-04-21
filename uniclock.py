@@ -54,7 +54,7 @@ options.hardware_mapping = 'adafruit-hat-pwm'  # If you have an Adafruit HAT: 'a
 matrix = RGBMatrix(options = options)
 
 #auto-dimming range
-minbrt = 2
+minbrt = 1
 maxbrt = 50
 
 #forecast globals

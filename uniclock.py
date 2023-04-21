@@ -55,7 +55,7 @@ matrix = RGBMatrix(options = options)
 
 #auto-dimming range
 minbrt = 2
-maxbrt = 60
+maxbrt = 50
 
 #forecast globals
 todayhigh = 0

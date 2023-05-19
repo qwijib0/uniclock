@@ -95,9 +95,9 @@ def GetTodayConditionIcon():
     
     #print(conditionset)
     sunnyset = ['Sunny']
-    pcloudyset = ['PartlyCloudy']
+    pcloudyset = ['PartlyCloudy', 'Partly cloudy']
     cloudyset = ['Cloudy','VeryCloudy','Fog']
-    rainyset = ['LightShowers','LightRain','HeavyShowers','HeavyRain']
+    rainyset = ['LightShowers','LightRain','HeavyShowers','HeavyRain','Patchy rain possible']
     wmixset = ['LightSleet','LightSleetShowers']
     tstormsset = ['ThunderyShowers','ThunderySnowShowers','ThunderyHeavyRain']
     flurriesset = ['LightSnow','LightSnowShowers']

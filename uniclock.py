@@ -68,7 +68,8 @@ def GetForecast():
         forecast = wttr.en()
     except:
         return todayhigh
-    global conditionset = []
+    global conditionset
+    conditionset = []
     #print("getting forecast")
     for x in range(2,6):
         conditionset.append(forecast.weather[0].hourly[x].weather_desc[0].value)

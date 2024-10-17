@@ -216,15 +216,19 @@ def sparkle(numloops, frdelay):
 
             # Add time
             time_str = now.strftime("%I:%M %p")
+            day_str = now.strftime("%b %d")
             dow_str = now.strftime("%a")
             hr_str = now.strftime("%I")
             min_str = now.strftime("%M")
             anp_str = now.strftime("%P")
             i1 = ImageDraw.Draw(imageObject)
+            #i1.text((17,57), str(time_str), font=myFont, fill=(255, 255, 255))
+            #i1.text((3,55), str(dow_str), font=myFont, fill=(255, 255, 255))
             i1.text((37,57), str(hr_str), font=myFont, fill=(255, 255, 255))
             i1.text((48,57), str(":"), font=myFont, fill=(255, 255, 255))
             i1.text((53,57), str(min_str), font=myFont, fill=(255, 255, 255))
-            i1.text((47,48), str(dow_str), font=myFont, fill=(255, 255, 255))
+            i1.text((37,47), str(day_str), font=myTinyFont, fill=(255, 255, 255))
+            i1.text((49,40), str(dow_str), font=myTinyFont, fill=(255, 255, 255))
 
     
          #adjust spacing if 3 digits to right-align
@@ -262,6 +266,7 @@ def updateClock(topOfHour):
 
     # Add time
     time_str = now.strftime("%I:%M %p")
+    day_str = now.strftime("%b %d")
     dow_str = now.strftime("%a")
     hr_str = now.strftime("%I")
     min_str = now.strftime("%M")
@@ -272,7 +277,8 @@ def updateClock(topOfHour):
     i1.text((37,57), str(hr_str), font=myFont, fill=(255, 255, 255))
     i1.text((48,57), str(":"), font=myFont, fill=(255, 255, 255))
     i1.text((53,57), str(min_str), font=myFont, fill=(255, 255, 255))
-    i1.text((47,48), str(dow_str), font=myFont, fill=(255, 255, 255))
+    i1.text((37,47), str(day_str), font=myTinyFont, fill=(255, 255, 255))
+    i1.text((49,40), str(dow_str), font=myTinyFont, fill=(255, 255, 255))
 
     #Add forecast
     #w, h = 14, 10

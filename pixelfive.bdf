@@ -4,7 +4,7 @@ COMMENT Converted from OpenType font "PixelFive-Regular.otf" by "otf2bdf 3.0".
 COMMENT
 FONT -FreeType-Pixel Five-Medium-R-Normal--5-50-72-72-P-47-ISO10646-1
 SIZE 5 72 72
-FONTBOUNDINGBOX 6 5 0 0
+FONTBOUNDINGBOX 5 5 0 0
 STARTPROPERTIES 19
 FOUNDRY "FreeType"
 FAMILY_NAME "Pixel Five"

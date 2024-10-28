@@ -194,7 +194,7 @@ def TODAdjustBrightness():
 
 # Set Font
 myFont = ImageFont.load('./monogram.pil')
-myTinyFont = ImageFont.load('./antidote.pil')
+myTinyFont = ImageFont.load('./pixelfive.pil')
 
 
 def in_between(now, start, end):
